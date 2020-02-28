@@ -2,24 +2,45 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+(defun tangle-config ()
+  "Tangles configuration files from .org file"
+  (let ((src (concat dotspacemacs-directory "spacemacs.org"))
+	(lyrs (concat dotspacemacs-directory "layers.el"))
+	(ui (concat dotspacemacs-directory "user-init.el"))
+	(uc (concat dotspacemacs-directory "user-config.el")))
+    (when (file-readable-p src)
+      (when (or (file-newer-than-file-p src l)
+	     (file-newer-than-file-p src ui)
+	     (file-newer-than-file-p src uc))
+	(org-babel-tangle-file src)))))
+
+(defun dotspacemacs/init ()
+   "Initialization:
+This function is called at the very beginning of Spacemacs startup,
+before layer configuration.
+It should only modify the values of Spacemacs settings."
+   ;; Source user-init file
+  (let ((si (concat dotspacemacs-directory "spacemacs-init.el")))
+    (load-file si)))
+
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
 This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  ;; tangle without actually loading org
-  (let ((src (concat dotspacemacs-directory "spacemacs.org"))
-        (ui (concat dotspacemacs-directory "user-init.el"))
-        (uc (concat dotspacemacs-directory "user-config.el")))
-    (when (or (file-newer-than-file-p src ui)
-              (file-newer-than-file-p src uc))
-      (call-process
-       (concat invocation-directory invocation-name)
-       nil nil t
-       "-q" "--batch" "--eval" "(require 'ob-tangle)"
-       "--eval" (format "(org-babel-tangle-file \"%s\")" src)))
+  ;; Call config tangling function
+  (tangle-config)
+
+  ;; Source user-init file
+  (let ((ui (concat dotspacemacs-directory "user-init.el")))
     (load-file ui)))
+
+(defun dotspacemacs/layers ()
+  "Layer configuration:
+This function should only modify configuration layer settings."
+  (let ((lyrs (concat dotspacemacs-directory "layers.el")))
+    (load-file lyrs)))
 
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
