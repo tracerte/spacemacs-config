@@ -1,0 +1,11 @@
+# -*- mode: gitignore; -*-
+
+# Emacs generated config file #
+##############################
+layers.el
+user-init.el
+user-config.el
+
+# Emacs specific files #
+#######################
+*~
