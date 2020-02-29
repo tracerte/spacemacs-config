@@ -15,25 +15,20 @@ s-expression from =spacemacs/init= into the file.
 To add configuration options before Spacemacs loads, insert the following kind
 of src block in your spacemacs.org file
 
-#+BEGIN_COMMENT
 #+BEGIN_SRC emacs-lisp :tangle user-init.el
 #+END_SRC
-#+END_COMMENT
 
 Configuration of layers can be inserted using the following kind of src block in your spacemacs.org file
 
-#+BEGIN_COMMENT
 #+BEGIN_SRC emacs-lisp :tangle layers.el
 #+END_SRC
-#+END_COMMENT
 
 Alternatively, if the block should be loaded after Spacemacs loads, insert the
 following test block
 
-#+BEGIN_COMMENT
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
 #+END_SRC
-#+END_COMMENT
+
 * Helper Functions
 
 ** Org Template creation

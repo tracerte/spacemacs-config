@@ -6,6 +6,10 @@ layers.el
 user-init.el
 user-config.el
 
+# Spacemacs generated files #
+##########################
+.spacemacs.env
+
 # Emacs specific files #
 #######################
 *~
