@@ -6,80 +6,34 @@
 #+PROPERTY: header-args:emacs-lisp :comments link
 
 * Introduction
-  This is a tangled user-init and user-config file for spacemacs. Place the
-  following code in your =~/.spacemacs.d/init.el= file.
-
-** init.el  
-   
-#+BEGIN_SRC emacs-lisp :tangle no
-  (defun tangle-config ()
-    "Tangles configuration files from .org file"
-    (let ((src (concat dotspacemacs-directory "spacemacs.org"))
-	  (lyrs (concat dotspacemacs-directory "layers.el"))
-	  (ui (concat dotspacemacs-directory "user-init.el"))
-	  (uc (concat dotspacemacs-directory "user-config.el")))
-      (when (file-readable-p src)
-	(when (or (file-newer-than-file-p src l)
-	       (file-newer-than-file-p src ui)
-	       (file-newer-than-file-p src uc))
-	  (org-babel-tangle-file src)))))
-
-  (defun dotspacemacs/init ()
-     "Initialization:
-  This function is called at the very beginning of Spacemacs startup,
-  before layer configuration.
-  It should only modify the values of Spacemacs settings."
-     ;; Source user-init file
-    (let ((si (concat dotspacemacs-directory "spacemacs-init.el")))
-      (load-file si)))
-
-  (defun dotspacemacs/user-init ()
-    "Initialization for user code:
-  This function is called immediately after `dotspacemacs/init', before layer
-  configuration.
-  It is mostly for variables that should be set before packages are loaded.
-  If you are unsure, try setting them in `dotspacemacs/user-config' first."
-    ;; Call config tangling function
-    (tangle-config)
-
-    ;; Source user-init file
-    (let ((ui (concat dotspacemacs-directory "user-init.el")))
-      (load-file ui)))
-
-  (defun dotspacemacs/layers ()
-    "Layer configuration:
-  This function should only modify configuration layer settings."
-    (let ((lyrs (concat dotspacemacs-directory "layers.el")))
-      (load-file lyrs)))
-
-  (defun dotspacemacs/user-config ()
-    "Configuration for user code:
-  This function is called at the very end of Spacemacs startup, after layer
-  configuration.
-  Put your configuration code here, except for variables that should be set
-  before packages are loaded."
-    (let ((uc (concat dotspacemacs-directory "user-config.el")))
-      (load-file uc)))
-#+END_SRC
+This is a tangled user-init, layers, and user-config file for spacemacs. For changes to the =spacemacs/init= function, please use the =spacemacs-init.el= file which contains a listing of all
+known variables for said function. Currently, the =spacemacs-init.el= file tracks the develop
+branch of spacemacs, but this can be changed by copy-pasting the contents of the =setq-default= 
+s-expression from =spacemacs/init= into the file.
 
 ** spacemacs.org 
 To add configuration options before Spacemacs loads, insert the following kind
 of src block in your spacemacs.org file
 
+#+BEGIN_COMMENT
 #+BEGIN_SRC emacs-lisp :tangle user-init.el
 #+END_SRC
+#+END_COMMENT
 
 Configuration of layers can be inserted using the following kind of src block in your spacemacs.org file
 
+#+BEGIN_COMMENT
 #+BEGIN_SRC emacs-lisp :tangle layers.el
 #+END_SRC
+#+END_COMMENT
 
 Alternatively, if the block should be loaded after Spacemacs loads, insert the
 following test block
 
+#+BEGIN_COMMENT
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
 #+END_SRC
-
+#+END_COMMENT
 * Helper Functions
 
 ** Org Template creation
@@ -118,6 +72,16 @@ To tangle to the =user-init= file, type =<ui=, =layers= file, type =<lyrs=, alte
     (find-file (concat dotspacemacs-directory "/spacemacs.org")))
 
   (spacemacs/set-leader-keys "fec" 'spacemacs/find-config-file)
+
+#+END_SRC
+
+** Find spacemacs-init file
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (defun spacemacs.org/find-spacemacs-init-file ()
+    (interactive)
+    (find-file (concat dotspacemacs-directory "/spacemacs-init.el")))
+
+  (spacemacs/set-leader-keys "fei" 'spacemacs.org/find-spacemacs-init-file)
 
 #+END_SRC
 
@@ -188,7 +152,7 @@ List of configuration layers to load.
        ;; lsp
        ;; markdown
        multiple-cursors
-       ;; org
+       org
        ;; (shell :variables
        ;;        shell-default-height 30
        ;;        shell-default-position 'bottom)
@@ -239,5 +203,5 @@ uninstalls them.
 
 #+BEGIN_SRC emacs-lisp :tangle layers.el
   (setq-default
-   dotspacemacs-install-packages 'used-only))
+   dotspacemacs-install-packages 'used-only)
 #+END_SRC

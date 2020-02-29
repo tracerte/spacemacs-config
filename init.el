@@ -2,6 +2,8 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+;; A test variable
+;; (setq dotspacemacs-directory "~/spacemacs.org/")
 (defun tangle-config ()
   "Tangles configuration files from .org file"
   (let ((src (concat dotspacemacs-directory "spacemacs.org"))
@@ -9,10 +11,14 @@
 	(ui (concat dotspacemacs-directory "user-init.el"))
 	(uc (concat dotspacemacs-directory "user-config.el")))
     (when (file-readable-p src)
-      (when (or (file-newer-than-file-p src l)
-	     (file-newer-than-file-p src ui)
-	     (file-newer-than-file-p src uc))
+      (when (or (file-newer-than-file-p src lyrs)
+		(file-newer-than-file-p src ui)
+		(file-newer-than-file-p src uc))
+	(require 'ob-tangle)
 	(org-babel-tangle-file src)))))
+
+;; Call config tangling function
+(tangle-config)
 
 (defun dotspacemacs/init ()
    "Initialization:
@@ -29,8 +35,6 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  ;; Call config tangling function
-  (tangle-config)
 
   ;; Source user-init file
   (let ((ui (concat dotspacemacs-directory "user-init.el")))
