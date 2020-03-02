@@ -37,25 +37,30 @@ To help with creation of your text blocks, there are three org templates defined
 
 To tangle to the =user-init= file, type =<ui=, =layers= file, type =<lyrs=, alternatively =<uc= to tangle the =user-config= file.
 
+=Note:= Org Mode 9.2+ templates have changed. To continue using the older style, add the following =(require 'org-tempo)=. See the following [[https://emacs.stackexchange.com/questions/47181/org-structure-template-alist-chasing-a-ghost-entry][link]].
+
 *** user-init
 
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (require 'org-tempo)
   (add-to-list 'org-structure-template-alist
-	       '("ui" "#+BEGIN_SRC emacs-lisp :tangle user-init.el\n?\n#+END_SRC"))
+         '("ui" "#+BEGIN_SRC emacs-lisp :tangle user-init.el\n?\n#+END_SRC"))
 #+END_SRC
 
 *** layers
 
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (require 'org-tempo)
   (add-to-list 'org-structure-template-alist
-	       '("lyrs" "#+BEGIN_SRC emacs-lisp :tangle layers.el\n?\n#+END_SRC"))
+         '("lyrs" "#+BEGIN_SRC emacs-lisp :tangle layers.el\n?\n#+END_SRC"))
 #+END_SRC
 
 *** user-config
 
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (require 'org-tempo)
   (add-to-list 'org-structure-template-alist
-	       '("uc" "#+BEGIN_SRC emacs-lisp :tangle user-config.el\n?\n#+END_SRC"))
+         '("uc" "#+BEGIN_SRC emacs-lisp :tangle user-config.el\n?\n#+END_SRC"))
 #+END_SRC
 
 ** Find this file
