@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: layers
+# key: lyrs
+# --
+#+BEGIN_SRC emacs-lisp :tangle layers.el
+$1
+#+END_SRC
+
