@@ -132,6 +132,7 @@ List of configuration layers to load.
        auto-completion
        ;; better-defaults
        emacs-lisp
+       racket
        ;; git
        helm
        ;; lsp
@@ -158,7 +159,9 @@ Also include the dependencies as they will not be resolved automatically.
 
 #+BEGIN_SRC emacs-lisp :tangle layers.el
   (setq-default
-   dotspacemacs-additional-packages '())
+   dotspacemacs-additional-packages '(
+                                      (ob-racket :location
+                                                 (recipe :fetcher github :repo "DEADB17/ob-racket"))))
 #+END_SRC
 
 **** Frozen Packages
@@ -190,3 +193,14 @@ uninstalls them.
   (setq-default
    dotspacemacs-install-packages 'used-only)
 #+END_SRC
+* Racket Language Literate Programming
+Use =org= mode and =babel= to perform literate programming in babel.
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (use-package ob-racket
+    :after org
+    :pin manual
+    :config
+    (append '((racket . t) (scribble . t)) org-babel-load-languages))
+#+END_SRC
+
+
