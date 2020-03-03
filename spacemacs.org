@@ -1,4 +1,4 @@
-#+TITLE: Spacemacs tangled user configuration
+#+TITLE: Spacemacs Tangled Configuration
 #+STARTUP: headlines
 #+STARTUP: nohideblocks
 #+STARTUP: noindent
@@ -36,7 +36,7 @@ following test block
 To help with creation of your text blocks, there are two snippets defined in the
 local snippet directory =~/.spacemacs.d/snippets/org-mode/= folder.
 
-To tangle to the =user-init= file, type =ui=, =layers= file, type =lyrs=, alternatively =uc= to tangle the =user-config= file.
+To tangle to the =user-spacemacs-int= file, type =usi=, =user-init= file, type =ui=, =layers= file, type =lyrs=, alternatively =uc= to tangle the =user-config= file.
 
 ** Find this file
    Create binding to spacemacs.org file
@@ -60,9 +60,21 @@ To tangle to the =user-init= file, type =ui=, =layers= file, type =lyrs=, altern
 
 * Spacemacs Init Configuration
 
-The Spacemacs Init Configuration is in it's own file =spacemacs-init.el=. Making this a separate file allows us to keep up with active development, which changes the =dotspacemacs/init= function
-and it's variables more often than the other native configuration functions. As an added benefit it is unlikely that we will frequently change variables in this function, so keeping it outside
-of our org configuration is a win-win scenario. 
+Most of the Spacemacs Init Configuration is in it's own file =spacemacs-init.el=. We can override the defaults, by moving their variable declarations to this document in a =user-spacemacs-init.el= 
+src block. Variables set in this document will override those set in the default file.
+
+#+BEGIN_SRC emacs-lisp :tangle user-spacemacs-init.el
+  (setq-default
+   ;; One of `vim', `emacs' or `hybrid'.
+   ;; `hybrid' is like `vim' except that `insert state' is replaced by the
+   ;; `hybrid state' with `emacs' key bindings. The value can also be a list
+   ;; with `:variables' keyword (similar to layers). Check the editing styles
+   ;; section of the documentation for details on available variables.
+   ;; (default 'vim)
+   dotspacemacs-editing-style 'vim)
+
+
+#+END_SRC
 
 * Layer Configuration
 

@@ -9,13 +9,15 @@
   (let ((src (concat dotspacemacs-directory "spacemacs.org"))
 	(lyrs (concat dotspacemacs-directory "layers.el"))
 	(ui (concat dotspacemacs-directory "user-init.el"))
-	(uc (concat dotspacemacs-directory "user-config.el")))
+	(uc (concat dotspacemacs-directory "user-config.el"))
+  (usi (concat dotspacemacs-directory "user-spacemacs-init.el")))
     (when (file-readable-p src)
       (when (or (file-newer-than-file-p src lyrs)
-		(file-newer-than-file-p src ui)
-		(file-newer-than-file-p src uc))
-	(require 'ob-tangle)
-	(org-babel-tangle-file src)))))
+                (file-newer-than-file-p src usi)
+                (file-newer-than-file-p src ui)
+                (file-newer-than-file-p src uc))
+        (require 'ob-tangle)
+        (org-babel-tangle-file src)))))
 
 ;; Call config tangling function
 (tangle-config)
@@ -25,9 +27,12 @@
 This function is called at the very beginning of Spacemacs startup,
 before layer configuration.
 It should only modify the values of Spacemacs settings."
-   ;; Source user-init file
-  (let ((si (concat dotspacemacs-directory "spacemacs-init.el")))
-    (load-file si)))
+   ;; Source spacemacs-init and user-spacemacs-init files
+   (let ((si (concat dotspacemacs-directory "spacemacs-init.el"))
+         (usi (concat dotspacemacs-directory "user-spacemacs-init.el")))
+     (load-file si)
+     (load-file usi)))
+
 
 (defun dotspacemacs/user-init ()
   "Initialization for user code:

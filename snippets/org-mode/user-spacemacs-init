@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: user-spacemacs-init
+# key: usi
+# --
+#+BEGIN_SRC emacs-lisp :tangle user-spacemacs-init.el
+$1
+#+END_SRC
+

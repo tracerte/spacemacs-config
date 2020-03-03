@@ -5,6 +5,7 @@
 layers.el
 user-init.el
 user-config.el
+user-spacemacs-init.el
 
 # Spacemacs generated files #
 ##########################
