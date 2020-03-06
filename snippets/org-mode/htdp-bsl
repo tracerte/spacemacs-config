@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: htdp-bsl
+# key: htdp-bsl
+# --
+#+BEGIN_SRC racket :lang htdp/bsl :results output
+$1
+#+END_SRC

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: racket-base
+# key: rkt-base
+# --
+#+BEGIN_SRC racket :lang racket/base :results output
+$1
+#+END_SRC
